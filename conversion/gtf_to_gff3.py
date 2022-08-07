@@ -43,12 +43,11 @@ def gtf_to_gff3(
 
     #Reading the .gtf file as a dataframe
     df = pd.read_csv(input, sep="\t", header=None, comment='#')
-    df.iloc[:, 1] = ["gtf_to_gff3"]*len(df)
     df.iloc[:, 8] = [";".join([a for a in [search(attr, annot) for attr in gtf_attributes] if a is not None]) for annot in df.iloc[:, 8].values]
 
     #Outputting the gff3 dataframe
     with open(output, "w") as f_out:
         f_out.write("##gff-version 3\n")
-        f_out.write("##source-version ROSE\n")
+        f_out.write("##source-version gtf_to_gff3.py\n")
         f_out.write(f"##date {datetime.today().strftime('%Y-%m-%d')}\n")
         df.to_csv(f_out, sep="\t", header=False, index=False, mode="a")

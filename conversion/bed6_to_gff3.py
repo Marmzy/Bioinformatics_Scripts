@@ -22,7 +22,7 @@ def bed6_to_gff3(
     #Converting the .bed dataframe to a .gff3 dataframe
     gff_df = pd.DataFrame({
         "seqid": bed_df.iloc[:, 0],
-        "source": ["bed6_to_gff3"]*len(bed_df),
+        "source": ["."]*len(bed_df),
         "type": ["sequence_feature"]*len(bed_df),
         "start": bed_df.iloc[:, 1]+1,
         "end": bed_df.iloc[:, 2],
@@ -35,6 +35,6 @@ def bed6_to_gff3(
     #Outputting the gff3 dataframe
     with open(output, "w") as f_out:
         f_out.write("##gff-version 3\n")
-        f_out.write("##source-version ROSE\n")
+        f_out.write("##source-version bed6_to_gff3.py\n")
         f_out.write(f"##date {datetime.today().strftime('%Y-%m-%d')}\n")
         gff_df.to_csv(f_out, sep="\t", header=False, index=False, mode="a")
